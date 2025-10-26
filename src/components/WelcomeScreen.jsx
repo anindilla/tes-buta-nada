@@ -6,13 +6,8 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
       <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center border border-white/20">
         {/* Header */}
         <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl mb-4 shadow-xl relative overflow-hidden border-2 border-white/20">
-            {/* Add stronger inner highlight for better depth */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-3xl"></div>
-            {/* Use a larger, more prominent musical note with stronger contrast */}
-            <span className="text-white text-4xl drop-shadow-xl relative z-10 font-bold">🎵</span>
-            {/* Add subtle outer glow */}
-            <div className="absolute inset-0 rounded-3xl shadow-lg ring-2 ring-white/10"></div>
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-3xl mb-4 shadow-xl border-2 border-gray-200">
+            <span className="text-gray-800 text-4xl">🎵</span>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
             Tes Buta Nada
