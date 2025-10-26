@@ -1,6 +1,6 @@
 # Tes Buta Nada 🎵
-
-A web application to test pitch ability and detect tone deafness using Web Audio API.
+- https://tes-buta-nada.vercel.app
+- A web application to test pitch ability and detect tone deafness using Web Audio API.
 
 ## Features
 
