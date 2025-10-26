@@ -8,7 +8,6 @@ A web application to test pitch ability and detect tone deafness using Web Audio
 - 🎤 **Pitch Detection**: Accurate analysis using Web Audio API
 - 📊 **Scoring**: Score based on pitch accuracy (±50 cents = perfect)
 - 📱 **Responsive**: Mobile-friendly design
-- 🌈 **Purple Theme**: Modern UI with high accessibility
 
 ## How to Play
 
@@ -21,10 +20,10 @@ A web application to test pitch ability and detect tone deafness using Web Audio
 
 ## Result Categories
 
-- **Pitch Perfect** (45-50): Excellent pitch ability! 🏆
-- **Not Tone Deaf** (30-44): Not tone deaf, good musical ability 🎵
-- **Questionably Tone Deaf** (20-29): Might have some pitch difficulty 🤔
-- **Tone Deaf** (0-19): Possibly tone deaf, but can still learn music! 😅
+- **Pitch Perfect**: Excellent pitch ability! 🏆
+- **Not Tone Deaf**: Not tone deaf, good musical ability 🎵
+- **Questionably Tone Deaf**: Might have some pitch difficulty 🤔
+- **Tone Deaf**: Possibly tone deaf, but can still learn music! 😅
 
 ## Technology Stack
 
