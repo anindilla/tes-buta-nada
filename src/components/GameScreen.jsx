@@ -79,7 +79,7 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
   const progressPercentage = (currentRound / 10) * 100;
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 pb-20">
       <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-lg w-full border border-white/20">
         {/* Header with Progress */}
         <div className="mb-8">

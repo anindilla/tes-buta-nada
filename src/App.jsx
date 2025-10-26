@@ -4,6 +4,7 @@ import GenderSelection from './components/GenderSelection';
 import GameScreen from './components/GameScreen';
 import FinalResults from './components/FinalResults';
 import SingingTipsScreen from './components/SingingTipsScreen';
+import Footer from './components/Footer';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('welcome');
@@ -63,6 +64,7 @@ function App() {
   return (
     <div className="App">
       {renderScreen()}
+      <Footer />
     </div>
   );
 }
