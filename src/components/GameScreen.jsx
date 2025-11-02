@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useToneGenerator } from '../utils/toneGenerator';
 import { usePitchDetection } from '../hooks/usePitchDetection';
 
@@ -6,8 +6,6 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
   const [currentTone, setCurrentTone] = useState(null);
   const [hasPlayedTone, setHasPlayedTone] = useState(false);
   const [hasRecorded, setHasRecorded] = useState(false);
-  const [showResult, setShowResult] = useState(false);
-  const [roundResult, setRoundResult] = useState(null);
   
   const { playRandomTone, isPlaying } = useToneGenerator();
   const { 
@@ -21,6 +19,7 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
     startRecording, 
     stopRecording, 
     playRecording,
+    stopAudioPlayback,
     analyzePitch,
     reset 
   } = usePitchDetection();
@@ -39,6 +38,9 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
     
     if (!hasPlayedTone) return;
     
+    // Stop any playing audio before starting new recording
+    stopAudioPlayback();
+    
     try {
       console.log('🎤 Starting recording from GameScreen...');
       await startRecording();
@@ -52,28 +54,37 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
   const handleStopRecord = () => {
     stopRecording();
     setHasRecorded(true);
-  };
-  
-  const handleContinue = () => {
-    if (!hasRecorded) return;
     
-    const result = analyzePitch(currentTone.frequency);
-    setRoundResult(result);
-    setShowResult(true);
-  };
-  
-  const handleNextRound = () => {
-    onRoundComplete(roundResult.score);
-    reset();
-    setCurrentTone(null);
-    setHasPlayedTone(false);
-    setHasRecorded(false);
-    setShowResult(false);
-    setRoundResult(null);
-  };
-  
-  const handleFinish = () => {
-    onFinish();
+    // Analyze pitch after a short delay to ensure recording has processed
+    setTimeout(() => {
+      if (!currentTone) return;
+      
+      const result = analyzePitch(currentTone.frequency);
+      
+      // Prepare round result with all needed data
+      const roundResult = {
+        score: result.score,
+        category: result.category,
+        centsDiff: result.centsDiff,
+        referenceNote: currentTone.note,
+        referenceFrequency: currentTone.frequency,
+        detectedPitch: result.avgPitch || detectedPitch
+      };
+      
+      // Auto-advance: if last round, finish; otherwise move to next round
+      if (currentRound >= 10) {
+        onRoundComplete(roundResult);
+        onFinish();
+      } else {
+        onRoundComplete(roundResult);
+        // Reset for next round
+        stopAudioPlayback();
+        reset();
+        setCurrentTone(null);
+        setHasPlayedTone(false);
+        setHasRecorded(false);
+      }
+    }, 1000); // Delay to ensure analysis completes (matches isAnalyzing timeout)
   };
   
   const progressPercentage = (currentRound / 10) * 100;
@@ -119,9 +130,8 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
         )}
         
         {/* Game Content */}
-        {!showResult ? (
-          <>
-            {/* Desktop: Two-column layout, Mobile: Stacked */}
+        <>
+          {/* Desktop: Two-column layout, Mobile: Stacked */}
             <div className="lg:grid lg:grid-cols-2 lg:gap-6 xl:gap-8 space-y-8 lg:space-y-0">
               {/* Play Tone Section */}
               <div className="lg:mb-0">
@@ -291,77 +301,17 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
               )}
             </div>
             
-            {/* Continue Button - Full Width */}
-            {hasRecorded && !isAnalyzing && (
-              <button
-                onClick={handleContinue}
-                className="w-full group relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-5 sm:py-6 lg:py-6 px-6 sm:px-8 lg:px-12 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl touch-target active:scale-95"
-                aria-label="Analisis dan lanjut ke hasil"
-              >
-                <div className="flex items-center justify-center space-x-3">
-                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                    <span className="text-lg">📊</span>
-                  </div>
-                  <span className="text-base sm:text-lg lg:text-xl">Analisis & Lanjut</span>
-                </div>
-              </button>
-            )}
-            
-            {/* Analyzing State */}
-            {isAnalyzing && (
-              <div className="text-center py-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl mb-4">
-                  <div className="w-8 h-8 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">Menganalisis...</h3>
-                <p className="text-gray-600">AI sedang memproses pitch kamu</p>
+          {/* Analyzing State */}
+          {isAnalyzing && (
+            <div className="text-center py-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl mb-4">
+                <div className="w-8 h-8 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
               </div>
-            )}
-          </>
-        ) : (
-          /* Result Display */
-          <div className="text-center">
-            <div className="mb-6">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl mb-4 shadow-lg">
-                <span className="text-4xl">
-                  {roundResult.category === 'on tune' ? '🎵' : 
-                   roundResult.category === 'nearly there' ? '🎶' : '🎼'}
-                </span>
-              </div>
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                {roundResult.category === 'on tune' ? 'Sempurna!' :
-                 roundResult.category === 'nearly there' ? 'Hampir tepat!' : 'Coba lagi!'}
-              </h2>
-              <div className="flex items-center justify-center space-x-4 mb-4">
-                <div className="bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
-                  <p className="text-sm text-gray-600">Skor</p>
-                  <p className="text-2xl font-bold text-purple-600">{roundResult.score}/5</p>
-                </div>
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-2 rounded-xl">
-                  <p className="text-sm text-gray-600">Perbedaan</p>
-                  <p className="text-lg font-bold text-gray-700">±{roundResult.centsDiff.toFixed(0)} cents</p>
-                </div>
-              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Menganalisis...</h3>
+              <p className="text-gray-600">AI sedang memproses pitch kamu</p>
             </div>
-            
-            {/* Navigation Button */}
-            <button
-              onClick={currentRound < 10 ? handleNextRound : handleFinish}
-              className="w-full group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
-            >
-              <div className="flex items-center justify-center space-x-3">
-                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                  <span className="text-lg">
-                    {currentRound < 10 ? '➡️' : '🏆'}
-                  </span>
-                </div>
-                <span className="text-lg">
-                  {currentRound < 10 ? 'Round Berikutnya' : 'Lihat Hasil Akhir'}
-                </span>
-              </div>
-            </button>
-          </div>
-        )}
+          )}
+        </>
       </div>
     </div>
   );

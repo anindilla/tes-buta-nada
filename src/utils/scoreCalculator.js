@@ -7,29 +7,29 @@ export const calculateTotalScore = (roundScores) => {
 export const getScoreCategory = (totalScore) => {
   if (totalScore >= 45) {
     return {
-      category: 'Pitch Perfect',
-      description: 'Congratulations! You have excellent pitch ability!',
+      category: 'Pitch Sempurna',
+      description: 'Selamat! Kamu memiliki kemampuan pitch yang sangat baik!',
       color: 'text-green-600',
       bgColor: 'bg-green-100'
     };
   } else if (totalScore >= 30) {
     return {
-      category: 'Not Tone Deaf',
-      description: 'Great! You are not tone deaf and have good musical ability.',
+      category: 'Tidak Buta Nada',
+      description: 'Bagus! Kamu tidak buta nada dan memiliki kemampuan musik yang baik.',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100'
     };
   } else if (totalScore >= 20) {
     return {
-      category: 'Questionably Tone Deaf',
-      description: 'Hmm, you might have some difficulty with pitch. Try practicing more!',
+      category: 'Mungkin Buta Nada',
+      description: 'Hmm, kamu mungkin memiliki kesulitan dengan pitch. Coba latihan lebih banyak!',
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-100'
     };
   } else {
     return {
-      category: 'Tone Deaf',
-      description: 'Unfortunately, you might be tone deaf. But don\'t worry, you can still learn music!',
+      category: 'Buta Nada',
+      description: 'Sayangnya, kamu mungkin buta nada. Tapi jangan khawatir, kamu masih bisa belajar musik!',
       color: 'text-red-600',
       bgColor: 'bg-red-100'
     };
@@ -47,18 +47,18 @@ export const GAME_CONFIG = {
 export const getRoundMessage = (category, centsDiff) => {
   const messages = {
     'on tune': {
-      title: 'Perfect!',
-      message: `You sang the note very accurately! (±${centsDiff.toFixed(0)} cents)`,
+      title: 'Sempurna!',
+      message: `Kamu menyanyikan nada dengan sangat akurat! (±${centsDiff.toFixed(0)} cents)`,
       emoji: '🎵'
     },
     'nearly there': {
-      title: 'Almost there!',
-      message: `Almost accurate, but there's still a slight difference. (±${centsDiff.toFixed(0)} cents)`,
+      title: 'Hampir tepat!',
+      message: `Hampir akurat, tapi masih ada sedikit perbedaan. (±${centsDiff.toFixed(0)} cents)`,
       emoji: '🎶'
     },
     'way off': {
-      title: 'Try again!',
-      message: `The note you sang is quite far from what was requested. (±${centsDiff.toFixed(0)} cents)`,
+      title: 'Coba lagi!',
+      message: `Nada yang kamu nyanyikan cukup jauh dari yang diminta. (±${centsDiff.toFixed(0)} cents)`,
       emoji: '🎼'
     }
   };

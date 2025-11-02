@@ -1,7 +1,7 @@
 import React from 'react';
 import { calculateTotalScore, getScoreCategory } from '../utils/scoreCalculator';
 
-const FinalResults = ({ roundScores, onRestart }) => {
+const FinalResults = ({ roundScores, roundResults, onRestart }) => {
   const totalScore = calculateTotalScore(roundScores);
   const category = getScoreCategory(totalScore);
   
@@ -15,6 +15,12 @@ const FinalResults = ({ roundScores, onRestart }) => {
     if (score === 5) return '🎵';
     if (score === 3) return '🎶';
     return '🎼';
+  };
+  
+  const getCategoryName = (category) => {
+    if (category === 'on tune') return 'Sempurna';
+    if (category === 'nearly there') return 'Hampir tepat';
+    return 'Tidak tepat';
   };
   
   return (
@@ -100,6 +106,58 @@ const FinalResults = ({ roundScores, onRestart }) => {
             <div className="text-xs sm:text-sm lg:text-base xl:text-lg text-gray-600">Perlu Latihan</div>
           </div>
         </div>
+        
+        {/* Scrollable Round Evaluations */}
+        {roundResults && roundResults.length > 0 && (
+          <div className="mb-6 sm:mb-8 lg:mb-12">
+            <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 lg:mb-8 text-center">
+              Evaluasi per Round
+            </h3>
+            <div className="max-h-96 lg:max-h-[500px] overflow-y-auto space-y-3 sm:space-y-4 pr-2">
+              {roundResults.map((result, index) => (
+                <div 
+                  key={index}
+                  className={`${getScoreColor(result.score)} bg-opacity-90 rounded-2xl p-4 sm:p-5 lg:p-6 shadow-lg`}
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="text-2xl sm:text-3xl">{getScoreIcon(result.score)}</span>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-1">
+                          <span className="text-white font-bold text-base sm:text-lg lg:text-xl">Round {index + 1}</span>
+                          <span className="text-white/80 text-sm sm:text-base">•</span>
+                          <span className="text-white font-bold text-base sm:text-lg lg:text-xl">{result.score}/5</span>
+                          <span className="text-white/80 text-sm sm:text-base">•</span>
+                          <span className="text-white font-semibold text-sm sm:text-base lg:text-lg">{getCategoryName(result.category)}</span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-xs sm:text-sm text-white/90">
+                          <div>
+                            <span className="font-semibold">Cents: </span>
+                            <span>±{result.centsDiff.toFixed(0)}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold">Nada: </span>
+                            <span>{result.referenceNote}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold">Ref: </span>
+                            <span>{result.referenceFrequency?.toFixed(1)} Hz</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold">Deteksi: </span>
+                            <span>{result.detectedPitch?.toFixed(1) || 'N/A'} Hz</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         {/* Action Buttons - Desktop: Side by side, Mobile: Stacked */}
         <div className="space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:flex lg:justify-center">

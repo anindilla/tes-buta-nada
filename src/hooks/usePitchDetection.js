@@ -46,6 +46,7 @@ export const usePitchDetection = () => {
   const recordedChunksRef = useRef([]);
   const isRecordingRef = useRef(false); // Fix closure bug
   const selectedFormatRef = useRef(null); // Store selected audio format
+  const currentAudioRef = useRef(null); // Track current Audio playback
   
   // Initialize audio context and detector
   useEffect(() => {
@@ -95,6 +96,9 @@ export const usePitchDetection = () => {
   const startRecording = async () => {
     try {
       console.log('🎤 Starting recording process...');
+      // Stop any playing audio before starting recording
+      stopAudioPlayback();
+      
       setError(null);
       setRecordedAudio(null);
       recordedChunksRef.current = [];
@@ -357,6 +361,21 @@ export const usePitchDetection = () => {
     console.log('📊 Recording stopped. Final pitch history:', pitchHistory);
   };
   
+  const stopAudioPlayback = () => {
+    if (currentAudioRef.current) {
+      console.log('⏹️ Stopping audio playback...');
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+        currentAudioRef.current.src = '';
+        currentAudioRef.current = null;
+      } catch (error) {
+        console.error('❌ Error stopping audio:', error);
+      }
+      setIsPlayingRecording(false);
+    }
+  };
+
   const playRecording = () => {
     if (!recordedAudio) {
       console.error('❌ No recording available to play');
@@ -364,10 +383,14 @@ export const usePitchDetection = () => {
       return;
     }
     
+    // Stop any existing playback first
+    stopAudioPlayback();
+    
     console.log('▶️ Starting playback of recording...');
     console.log('🔗 Audio URL:', recordedAudio);
     
     const audio = new Audio(recordedAudio);
+    currentAudioRef.current = audio; // Store reference
     setIsPlayingRecording(true);
     
     audio.onloadedmetadata = () => {
@@ -385,17 +408,20 @@ export const usePitchDetection = () => {
     audio.onended = () => {
       console.log('⏹️ Playback ended');
       setIsPlayingRecording(false);
+      currentAudioRef.current = null;
     };
     
     audio.onerror = (e) => {
       console.error('❌ Playback error:', e);
       setIsPlayingRecording(false);
+      currentAudioRef.current = null;
       setError('Failed to play recording: ' + (audio.error?.message || 'Unknown error'));
     };
     
     audio.play().catch(error => {
       console.error('❌ Play failed:', error);
       setIsPlayingRecording(false);
+      currentAudioRef.current = null;
       setError('Failed to play recording: ' + error.message);
     });
   };
@@ -407,7 +433,7 @@ export const usePitchDetection = () => {
     
     if (!detectedPitch && pitchHistory.length === 0) {
       console.warn('⚠️ No pitch data available for analysis');
-      return { score: 0, category: 'way off', centsDiff: 999 };
+      return { score: 0, category: 'way off', centsDiff: 999, avgPitch: null };
     }
     
     const avgPitch = pitchHistory.length > 0 
@@ -418,22 +444,26 @@ export const usePitchDetection = () => {
     
     const result = calculateScore(avgPitch, referenceFrequency);
     console.log('📊 Analysis Result:', result);
-    return result;
+    return { ...result, avgPitch };
   };
   
   const reset = () => {
     console.log('🔄 Resetting pitch detection state...');
+    // Stop any playing audio
+    stopAudioPlayback();
+    
     setDetectedPitch(null);
     setIsAnalyzing(false);
     setPitchHistory([]);
     setError(null);
-    setRecordedAudio(null);
-    setIsPlayingRecording(false);
-    isRecordingRef.current = false;
     
     if (recordedAudio) {
       URL.revokeObjectURL(recordedAudio);
     }
+    
+    setRecordedAudio(null);
+    setIsPlayingRecording(false);
+    isRecordingRef.current = false;
   };
   
   return {
@@ -447,6 +477,7 @@ export const usePitchDetection = () => {
     startRecording,
     stopRecording,
     playRecording,
+    stopAudioPlayback,
     analyzePitch,
     reset
   };

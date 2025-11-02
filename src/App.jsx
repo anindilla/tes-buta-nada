@@ -11,6 +11,7 @@ function App() {
   const [gender, setGender] = useState(null);
   const [currentRound, setCurrentRound] = useState(1);
   const [roundScores, setRoundScores] = useState([]);
+  const [roundResults, setRoundResults] = useState([]);
   
   const handleStart = () => {
     setCurrentScreen('gender');
@@ -21,8 +22,11 @@ function App() {
     setCurrentScreen('game');
   };
   
-  const handleRoundComplete = (score) => {
-    setRoundScores(prev => [...prev, score]);
+  const handleRoundComplete = (roundResult) => {
+    // Store full round result with all evaluation data
+    setRoundResults(prev => [...prev, roundResult]);
+    // Also store just score for backward compatibility
+    setRoundScores(prev => [...prev, roundResult.score]);
     setCurrentRound(prev => prev + 1);
   };
   
@@ -35,6 +39,7 @@ function App() {
     setGender(null);
     setCurrentRound(1);
     setRoundScores([]);
+    setRoundResults([]);
   };
   
   const renderScreen = () => {
@@ -53,7 +58,7 @@ function App() {
           />
         );
       case 'results':
-        return <FinalResults roundScores={roundScores} onRestart={handleRestart} />;
+        return <FinalResults roundScores={roundScores} roundResults={roundResults} onRestart={handleRestart} />;
       case 'tips':
         return <SingingTipsScreen onBack={() => setCurrentScreen('welcome')} />;
       default:
