@@ -59,8 +59,8 @@ const SingingTipsScreen = ({ onBack }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6 pb-20 animate-fade-in">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
+      <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto">
         {/* Header */}
         <div className="glass-card p-6 sm:p-8 md:p-10 mb-6 animate-slide-up">
           <div className="flex items-center justify-between mb-6">
@@ -85,7 +85,7 @@ const SingingTipsScreen = ({ onBack }) => {
         </div>
 
         {/* Tips Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {tips.map((tip, index) => (
             <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
               <h3 className="text-xl font-bold text-gray-800 mb-3">{tip.title}</h3>

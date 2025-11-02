@@ -2,8 +2,8 @@ import React from 'react';
 
 const WelcomeScreen = ({ onStart, onShowTips }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 animate-fade-in">
-      <div className="glass-card p-6 sm:p-8 md:p-10 max-w-lg w-full text-center animate-slide-up">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 max-w-lg md:max-w-xl lg:max-w-2xl w-full text-center animate-slide-up">
         {/* Header */}
         <div className="mb-8 sm:mb-10">
           <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-3xl mb-4 sm:mb-6 shadow-xl border-2 border-gray-200 card-hover">
@@ -19,7 +19,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
         
         {/* Features */}
         <div className="mb-8 sm:mb-10">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 text-left">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-4 text-left max-w-2xl mx-auto">
             <div className="flex items-center space-x-2 sm:space-x-3 p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl card-hover border border-blue-100">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-md flex-shrink-0 touch-target">
                 <span className="text-white text-base sm:text-lg drop-shadow-sm">👂</span>

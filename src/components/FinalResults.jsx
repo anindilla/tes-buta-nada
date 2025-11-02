@@ -18,8 +18,8 @@ const FinalResults = ({ roundScores, onRestart }) => {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 animate-fade-in">
-      <div className="glass-card p-6 sm:p-8 md:p-10 max-w-2xl w-full animate-slide-up">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 max-w-2xl md:max-w-3xl lg:max-w-4xl w-full animate-slide-up">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 shadow-lg card-hover">

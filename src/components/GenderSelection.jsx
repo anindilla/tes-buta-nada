@@ -2,8 +2,8 @@ import React from 'react';
 
 const GenderSelection = ({ onSelect }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 animate-fade-in">
-      <div className="glass-card p-6 sm:p-8 md:p-10 max-w-md w-full text-center animate-slide-up">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 max-w-md md:max-w-lg lg:max-w-xl w-full text-center animate-slide-up">
         {/* Header */}
         <div className="mb-8 sm:mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 shadow-lg card-hover">
