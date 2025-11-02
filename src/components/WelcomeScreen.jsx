@@ -2,8 +2,8 @@ import React from 'react';
 
 const WelcomeScreen = ({ onStart, onShowTips }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pb-20 md:pb-24 lg:pb-16 xl:pb-20 animate-fade-in">
-      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl w-full text-center animate-slide-up mb-0 lg:mb-16 xl:mb-20">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pb-20 md:pb-24 lg:pb-8 xl:pb-10 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl w-full text-center animate-slide-up mb-0 lg:mb-8 xl:mb-10">
         {/* Header */}
         <div className="mb-6 sm:mb-8 lg:mb-12">
           <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-white rounded-3xl mb-4 sm:mb-6 shadow-xl border-2 border-gray-200 card-hover">
@@ -27,7 +27,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
               </div>
               <div className="min-w-0">
                 <p className="font-semibold text-gray-800 text-xs sm:text-sm">Dengarkan</p>
-                <p className="text-gray-600 text-xs">Nada referensi</p>
+                <p className="text-gray-600 text-xs">Nada referensi dari kami</p>
               </div>
             </div>
             
@@ -36,8 +36,8 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
                 <span className="text-white text-base sm:text-lg drop-shadow-sm">🎤</span>
               </div>
               <div className="min-w-0">
-                <p className="font-semibold text-gray-800 text-xs sm:text-sm">Rekam</p>
-                <p className="text-gray-600 text-xs">Suara kamu</p>
+                <p className="font-semibold text-gray-800 text-xs sm:text-sm">Rekam suara</p>
+                <p className="text-gray-600 text-xs">Ikuti nada referensi dengan seksama</p>
               </div>
             </div>
             
@@ -47,7 +47,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
               </div>
               <div className="min-w-0">
                 <p className="font-semibold text-gray-800 text-xs sm:text-sm">Analisis</p>
-                <p className="text-gray-600 text-xs">AI pitch detection</p>
+                <p className="text-gray-600 text-xs">Pitch detection dengan AI</p>
               </div>
             </div>
             
@@ -56,8 +56,8 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
                 <span className="text-white text-base sm:text-lg drop-shadow-sm">🏆</span>
               </div>
               <div className="min-w-0">
-                <p className="font-semibold text-gray-800 text-xs sm:text-sm">Skor</p>
-                <p className="text-gray-600 text-xs">10 rounds</p>
+                <p className="font-semibold text-gray-800 text-xs sm:text-sm">Penilaian</p>
+                <p className="text-gray-600 text-xs">Dapatkan skor setelah 10 ronde</p>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
               </div>
               <div>
                 <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Dengarkan</p>
-                <p className="text-gray-600 text-sm xl:text-base">Nada referensi</p>
+                <p className="text-gray-600 text-sm xl:text-base">Nada referensi dari kami</p>
               </div>
             </div>
             
@@ -79,8 +79,8 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
                 <span className="text-white text-3xl xl:text-4xl drop-shadow-sm">🎤</span>
               </div>
               <div>
-                <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Rekam</p>
-                <p className="text-gray-600 text-sm xl:text-base">Suara kamu</p>
+                <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Rekam suara</p>
+                <p className="text-gray-600 text-sm xl:text-base">Ikuti nada referensi dengan seksama</p>
               </div>
             </div>
             
@@ -90,7 +90,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
               </div>
               <div>
                 <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Analisis</p>
-                <p className="text-gray-600 text-sm xl:text-base">AI pitch detection</p>
+                <p className="text-gray-600 text-sm xl:text-base">Pitch detection dengan AI</p>
               </div>
             </div>
             
@@ -99,8 +99,8 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
                 <span className="text-white text-3xl xl:text-4xl drop-shadow-sm">🏆</span>
               </div>
               <div>
-                <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Skor</p>
-                <p className="text-gray-600 text-sm xl:text-base">10 rounds</p>
+                <p className="font-bold text-gray-800 text-base xl:text-lg mb-1">Penilaian</p>
+                <p className="text-gray-600 text-sm xl:text-base">Dapatkan skor setelah 10 ronde</p>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
         </div>
         
         {/* Footer Info */}
-        <div className="mt-6 sm:mt-8 lg:mt-12 mb-4 sm:mb-6 lg:mb-8 xl:mb-12 space-y-2 sm:space-y-3">
+        <div className="mt-6 sm:mt-8 lg:mt-12 mb-4 sm:mb-6 lg:mb-4 xl:mb-6 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm lg:text-base text-gray-500">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
             <span>Mikrofon diperlukan</span>
