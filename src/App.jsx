@@ -62,7 +62,7 @@ function App() {
   };
   
   return (
-    <div className="App relative min-h-screen">
+    <div className="App relative min-h-screen pb-0 lg:pb-12 xl:pb-16">
       {renderScreen()}
       <Footer />
     </div>

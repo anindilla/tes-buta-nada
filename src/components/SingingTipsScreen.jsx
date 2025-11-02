@@ -59,8 +59,8 @@ const SingingTipsScreen = ({ onBack }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
-      <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6 pb-20 md:pb-24 lg:pb-16 xl:pb-20 animate-fade-in">
+      <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto pb-0 lg:pb-16 xl:pb-20">
         {/* Header */}
         <div className="glass-card p-6 sm:p-8 md:p-10 mb-6 animate-slide-up">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-6 mb-6">
@@ -108,9 +108,9 @@ const SingingTipsScreen = ({ onBack }) => {
         </div>
 
         {/* Footer */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 mt-6 border border-white/20 text-center">
-          <h3 className="text-lg font-bold text-gray-800 mb-2">🎯 Ingat!</h3>
-          <p className="text-gray-600 leading-relaxed">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 mt-6 lg:mt-8 mb-4 sm:mb-6 lg:mb-8 xl:mb-12 border border-white/20 text-center">
+          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 mb-2 sm:mb-3">🎯 Ingat!</h3>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed px-2">
             Meningkatkan kemampuan pitch membutuhkan waktu dan kesabaran. 
             Berlatihlah secara konsisten dan jangan berkecil hati jika hasilnya tidak langsung terlihat. 
             Setiap latihan akan membawa Anda lebih dekat ke tujuan!

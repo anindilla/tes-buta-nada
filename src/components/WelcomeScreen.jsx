@@ -2,8 +2,8 @@ import React from 'react';
 
 const WelcomeScreen = ({ onStart, onShowTips }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pb-20 md:pb-24 lg:pb-8 animate-fade-in">
-      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl w-full text-center animate-slide-up">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pb-20 md:pb-24 lg:pb-16 xl:pb-20 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-lg md:max-w-2xl lg:max-w-5xl xl:max-w-6xl w-full text-center animate-slide-up mb-0 lg:mb-16 xl:mb-20">
         {/* Header */}
         <div className="mb-6 sm:mb-8 lg:mb-12">
           <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 bg-white rounded-3xl mb-4 sm:mb-6 shadow-xl border-2 border-gray-200 card-hover">
@@ -126,7 +126,7 @@ const WelcomeScreen = ({ onStart, onShowTips }) => {
         </div>
         
         {/* Footer Info */}
-        <div className="mt-6 sm:mt-8 lg:mt-12 space-y-2 sm:space-y-3">
+        <div className="mt-6 sm:mt-8 lg:mt-12 mb-4 sm:mb-6 lg:mb-8 xl:mb-12 space-y-2 sm:space-y-3">
           <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm lg:text-base text-gray-500">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
             <span>Mikrofon diperlukan</span>
