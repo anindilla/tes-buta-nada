@@ -121,14 +121,16 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
         {/* Game Content */}
         {!showResult ? (
           <>
-            {/* Play Tone Section */}
-            <div className="mb-8">
-              <div className="text-center mb-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
-                  Dengarkan nada ini
-                </h2>
-                <p className="text-gray-600 text-sm sm:text-base">Klik tombol di bawah untuk memutar nada referensi</p>
-              </div>
+            {/* Desktop: Two-column layout, Mobile: Stacked */}
+            <div className="lg:grid lg:grid-cols-2 lg:gap-6 xl:gap-8 space-y-8 lg:space-y-0">
+              {/* Play Tone Section */}
+              <div className="lg:mb-0">
+                <div className="text-center mb-4 sm:mb-6">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 lg:mb-3">
+                    Dengarkan nada ini
+                  </h2>
+                  <p className="text-gray-600 text-sm sm:text-base lg:text-lg">Klik tombol di bawah untuk memutar nada referensi</p>
+                </div>
               
               <button
                 onClick={handlePlayTone}
@@ -163,19 +165,12 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                   </div>
                 </div>
               )}
-            </div>
-            
-            {/* Record Section */}
-            {hasPlayedTone && (
-              <div className="mb-8">
-                <div className="text-center mb-6">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
-                    Sekarang rekam suara kamu
-                  </h2>
-                  <p className="text-gray-600 text-sm sm:text-base">Nyanyikan nada yang sama dengan yang baru saja kamu dengar</p>
-                </div>
-                
-                {!isRecording ? (
+              </div>
+              
+              {/* Record Section */}
+              {hasPlayedTone && (
+                <div>
+                  {!isRecording ? (
                   <button
                     onClick={handleRecord}
                     className="w-full group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 sm:py-6 px-6 sm:px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl touch-target active:scale-95"
@@ -209,16 +204,16 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                       </div>
                     </button>
                   </div>
-                )}
-                
-                {/* Error Display */}
-                {error && (
-                  <div className="mt-4 p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl border-2 border-red-200">
-                    <div className="flex items-start space-x-3">
-                      <div className="text-red-500 text-xl">⚠️</div>
-                      <div className="flex-1">
-                        <p className="font-semibold text-red-800 mb-2">Error Rekaman</p>
-                        <p className="text-sm text-red-700 mb-3">{error}</p>
+                  )}
+                  
+                    {/* Error Display */}
+                  {error && (
+                    <div className="mt-4 lg:mt-6 p-4 lg:p-6 bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl border-2 border-red-200">
+                      <div className="flex items-start space-x-3">
+                        <div className="text-red-500 text-xl lg:text-2xl flex-shrink-0">⚠️</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-red-800 mb-2 text-sm lg:text-base">Error Rekaman</p>
+                          <p className="text-xs sm:text-sm lg:text-base text-red-700 mb-3 break-words">{error}</p>
                         <button
                           onClick={async (e) => {
                             e.preventDefault();
@@ -234,43 +229,44 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                         >
                           Coba Lagi
-                        </button>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                
-                {/* Pitch Detection Display */}
-                {detectedPitch && (
-                  <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl">
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="font-semibold text-gray-800">Pitch Terdeteksi</p>
-                        <p className="text-green-600 font-bold">{detectedPitch.toFixed(1)} Hz</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-800">Sampel</p>
-                        <p className="text-gray-600">{pitchHistory.length} readings</p>
+                  )}
+                  
+                  {/* Pitch Detection Display */}
+                  {detectedPitch && (
+                    <div className="mt-4 lg:mt-6 p-4 lg:p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl">
+                      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 text-sm lg:text-base">
+                        <div>
+                          <p className="font-semibold text-gray-800 mb-1">Pitch Terdeteksi</p>
+                          <p className="text-green-600 font-bold text-lg lg:text-xl">{detectedPitch.toFixed(1)} Hz</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-800 mb-1">Sampel</p>
+                          <p className="text-gray-600 text-lg lg:text-xl">{pitchHistory.length} readings</p>
+                        </div>
+                        {pitchHistory.length > 0 && (
+                          <div className="lg:col-span-1">
+                            <p className="font-semibold text-gray-800 mb-1">Rata-rata</p>
+                            <p className="text-gray-700 font-bold text-lg lg:text-xl">
+                              {(pitchHistory.reduce((sum, p) => sum + p, 0) / pitchHistory.length).toFixed(1)} Hz
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
-                    {pitchHistory.length > 0 && (
-                      <div className="mt-2 pt-2 border-t border-green-200">
-                        <p className="text-xs text-gray-600">
-                          Rata-rata: {(pitchHistory.reduce((sum, p) => sum + p, 0) / pitchHistory.length).toFixed(1)} Hz
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                {/* Recording Playback */}
-                {recordedAudio && (
-                  <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-semibold text-gray-800">Recording Berhasil!</p>
-                        <p className="text-sm text-gray-600">Klik untuk memutar ulang</p>
-                      </div>
+                  )}
+                  
+                  {/* Recording Playback */}
+                  {recordedAudio && (
+                    <div className="mt-4 lg:mt-6 p-4 lg:p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl">
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                          <p className="font-semibold text-gray-800 text-sm lg:text-base">Recording Berhasil!</p>
+                          <p className="text-xs sm:text-sm lg:text-base text-gray-600">Klik untuk memutar ulang</p>
+                        </div>
                       <button
                         onClick={playRecording}
                         disabled={isPlayingRecording}
@@ -279,32 +275,34 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                         {isPlayingRecording ? (
                           <>
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                            <span>Playing...</span>
+                            <span className="text-sm lg:text-base">Playing...</span>
                           </>
                         ) : (
                           <>
-                            <span>▶️</span>
-                            <span>Play</span>
+                            <span className="text-lg">▶️</span>
+                            <span className="text-sm lg:text-base">Play</span>
                           </>
                         )}
                       </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
             
-            {/* Continue Button */}
+            {/* Continue Button - Full Width */}
             {hasRecorded && !isAnalyzing && (
               <button
                 onClick={handleContinue}
-                className="w-full group relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                className="w-full group relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-5 sm:py-6 lg:py-6 px-6 sm:px-8 lg:px-12 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl touch-target active:scale-95"
+                aria-label="Analisis dan lanjut ke hasil"
               >
                 <div className="flex items-center justify-center space-x-3">
                   <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
                     <span className="text-lg">📊</span>
                   </div>
-                  <span className="text-lg">Analisis & Lanjut</span>
+                  <span className="text-base sm:text-lg lg:text-xl">Analisis & Lanjut</span>
                 </div>
               </button>
             )}

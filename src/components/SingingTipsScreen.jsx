@@ -63,41 +63,42 @@ const SingingTipsScreen = ({ onBack }) => {
       <div className="max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto">
         {/* Header */}
         <div className="glass-card p-6 sm:p-8 md:p-10 mb-6 animate-slide-up">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white text-2xl">💡</span>
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-6 mb-6">
+            <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <span className="text-white text-xl sm:text-2xl lg:text-3xl">💡</span>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <div className="min-w-0">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Tips Meningkatkan Pitch
                 </h1>
-                <p className="text-gray-600">Panduan untuk meningkatkan kemampuan pitch dalam bernyanyi</p>
+                <p className="text-gray-600 text-sm sm:text-base lg:text-lg mt-1">Panduan untuk meningkatkan kemampuan pitch dalam bernyanyi</p>
               </div>
             </div>
             <button
               onClick={onBack}
-              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-2.5 sm:py-3 lg:py-4 px-4 sm:px-6 lg:px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg text-sm sm:text-base lg:text-lg touch-target flex-shrink-0"
+              aria-label="Kembali ke halaman utama"
             >
               ← Kembali
             </button>
           </div>
         </div>
 
-        {/* Tips Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {/* Tips Grid - Mobile: 1 col, Tablet: 2 cols, Desktop: 3 cols */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {tips.map((tip, index) => (
-            <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">{tip.title}</h3>
-              <p className="text-gray-600 mb-4 leading-relaxed">{tip.description}</p>
+            <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 xl:p-10 border border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 card-hover">
+              <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-800 mb-2 sm:mb-3 lg:mb-4">{tip.title}</h3>
+              <p className="text-gray-600 text-sm sm:text-base lg:text-lg mb-3 sm:mb-4 lg:mb-6 leading-relaxed">{tip.description}</p>
               
-              <div className="space-y-2">
-                <h4 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">Cara Praktis:</h4>
-                <ul className="space-y-2">
+              <div className="space-y-2 sm:space-y-3">
+                <h4 className="font-semibold text-gray-700 text-xs sm:text-sm lg:text-base uppercase tracking-wide">Cara Praktis:</h4>
+                <ul className="space-y-2 sm:space-y-3">
                   {tip.details.map((detail, detailIndex) => (
-                    <li key={detailIndex} className="flex items-start space-x-2 text-sm text-gray-600">
-                      <span className="text-purple-500 mt-1">•</span>
-                      <span>{detail}</span>
+                    <li key={detailIndex} className="flex items-start space-x-2 sm:space-x-3 text-xs sm:text-sm lg:text-base text-gray-600">
+                      <span className="text-purple-500 mt-0.5 sm:mt-1 flex-shrink-0">•</span>
+                      <span className="flex-1">{detail}</span>
                     </li>
                   ))}
                 </ul>

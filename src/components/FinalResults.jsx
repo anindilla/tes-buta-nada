@@ -34,94 +34,96 @@ const FinalResults = ({ roundScores, onRestart }) => {
         </div>
         
         {/* Main Result Card */}
-        <div className={`${category.bgColor} rounded-3xl p-8 mb-8 border-2 ${category.color.includes('green') ? 'border-green-200' : category.color.includes('blue') ? 'border-blue-200' : category.color.includes('yellow') ? 'border-yellow-200' : 'border-red-200'}`}>
+        <div className={`${category.bgColor} rounded-3xl p-6 sm:p-8 lg:p-12 xl:p-16 mb-6 sm:mb-8 lg:mb-12 border-2 ${category.color.includes('green') ? 'border-green-200' : category.color.includes('blue') ? 'border-blue-200' : category.color.includes('yellow') ? 'border-yellow-200' : 'border-red-200'}`}>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/50 rounded-2xl mb-4">
-              <span className="text-5xl">
+            <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 bg-white/50 rounded-2xl lg:rounded-3xl mb-4 sm:mb-6 lg:mb-8">
+              <span className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">
                 {totalScore >= 45 ? '🏆' : 
                  totalScore >= 30 ? '🎵' : 
                  totalScore >= 20 ? '🤔' : '😅'}
               </span>
             </div>
-            <h2 className={`text-3xl font-bold ${category.color} mb-3`}>
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold ${category.color} mb-2 sm:mb-3 lg:mb-4`}>
               {category.category}
             </h2>
-            <p className="text-gray-700 text-lg mb-4">
+            <p className="text-gray-700 text-base sm:text-lg lg:text-xl xl:text-2xl mb-4 sm:mb-6 lg:mb-8 px-2">
               {category.description}
             </p>
             
             {/* Score Display */}
-            <div className="bg-white/60 rounded-2xl p-6">
-              <div className="text-4xl font-bold text-gray-800 mb-2">
+            <div className="bg-white/60 rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-md mx-auto">
+              <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-2">
                 {totalScore}/50
               </div>
-              <p className="text-gray-600 font-medium">Total Skor</p>
+              <p className="text-gray-600 font-medium text-sm sm:text-base lg:text-lg">Total Skor</p>
             </div>
           </div>
         </div>
         
-        {/* Score Breakdown */}
-        <div className="mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
+        {/* Score Breakdown - Desktop: 10 cols, Mobile: 5 cols */}
+        <div className="mb-6 sm:mb-8 lg:mb-12">
+          <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 lg:mb-8 text-center">
             Detail Skor per Round
           </h3>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-3 lg:gap-4">
             {roundScores.map((score, index) => (
               <div 
                 key={index}
-                className={`${getScoreColor(score)} text-white rounded-xl p-3 text-center shadow-lg transform hover:scale-105 transition-transform`}
+                className={`${getScoreColor(score)} text-white rounded-xl lg:rounded-2xl p-2 sm:p-3 lg:p-4 xl:p-6 text-center shadow-lg transform hover:scale-105 transition-transform card-hover`}
               >
-                <div className="text-lg font-bold mb-1">{getScoreIcon(score)}</div>
-                <div className="text-sm font-semibold">Round {index + 1}</div>
-                <div className="text-lg font-bold">{score}</div>
+                <div className="text-base sm:text-lg lg:text-2xl xl:text-3xl font-bold mb-1">{getScoreIcon(score)}</div>
+                <div className="text-xs sm:text-sm lg:text-base font-semibold mb-1">Round {index + 1}</div>
+                <div className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold">{score}</div>
               </div>
             ))}
           </div>
         </div>
         
-        {/* Statistics */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600">
+        {/* Statistics - Desktop: Larger cards, Mobile: Compact */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl lg:rounded-3xl p-3 sm:p-4 lg:p-6 xl:p-8 text-center">
+            <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">
               {roundScores.filter(s => s === 5).length}
             </div>
-            <div className="text-sm text-gray-600">Sempurna</div>
+            <div className="text-xs sm:text-sm lg:text-base xl:text-lg text-gray-600">Sempurna</div>
           </div>
-          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-600">
+          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl lg:rounded-3xl p-3 sm:p-4 lg:p-6 xl:p-8 text-center">
+            <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-yellow-600 mb-1 sm:mb-2">
               {roundScores.filter(s => s === 3).length}
             </div>
-            <div className="text-sm text-gray-600">Hampir Tepat</div>
+            <div className="text-xs sm:text-sm lg:text-base xl:text-lg text-gray-600">Hampir Tepat</div>
           </div>
-          <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-red-600">
+          <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl lg:rounded-3xl p-3 sm:p-4 lg:p-6 xl:p-8 text-center">
+            <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-red-600 mb-1 sm:mb-2">
               {roundScores.filter(s => s === 0).length}
             </div>
-            <div className="text-sm text-gray-600">Perlu Latihan</div>
+            <div className="text-xs sm:text-sm lg:text-base xl:text-lg text-gray-600">Perlu Latihan</div>
           </div>
         </div>
         
-        {/* Action Buttons */}
-        <div className="space-y-4">
+        {/* Action Buttons - Desktop: Side by side, Mobile: Stacked */}
+        <div className="space-y-3 sm:space-y-4 lg:space-y-0 lg:space-x-4 lg:flex lg:justify-center">
           <button
             onClick={onRestart}
-            className="w-full group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            className="w-full lg:w-auto btn-primary text-base sm:text-lg lg:px-12 lg:py-6 touch-target"
+            aria-label="Main tes lagi"
           >
             <div className="flex items-center justify-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
                 <span className="text-lg">🔄</span>
               </div>
-              <span className="text-lg">Main Lagi</span>
+              <span>Main Lagi</span>
             </div>
           </button>
           
           <button
             onClick={() => window.location.reload()}
-            className="w-full group relative overflow-hidden bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            className="w-full lg:w-auto btn-secondary text-sm sm:text-base lg:px-12 lg:py-6 touch-target"
+            aria-label="Keluar dari aplikasi"
           >
             <div className="flex items-center justify-center space-x-3">
-              <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                <span className="text-sm">🚪</span>
+              <div className="w-6 h-6 lg:w-8 lg:h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                <span className="text-sm lg:text-base">🚪</span>
               </div>
               <span>Keluar</span>
             </div>
