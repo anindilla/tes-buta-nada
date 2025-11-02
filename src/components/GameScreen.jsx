@@ -208,6 +208,35 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                   </div>
                 )}
                 
+                {/* Error Display */}
+                {error && (
+                  <div className="mt-4 p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl border-2 border-red-200">
+                    <div className="flex items-start space-x-3">
+                      <div className="text-red-500 text-xl">⚠️</div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-red-800 mb-2">Error Rekaman</p>
+                        <p className="text-sm text-red-700 mb-3">{error}</p>
+                        <button
+                          onClick={async (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            reset();
+                            try {
+                              await handleRecord(e);
+                            } catch (err) {
+                              // Error will be displayed automatically
+                              console.error('Retry failed:', err);
+                            }
+                          }}
+                          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                          Coba Lagi
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
                 {/* Pitch Detection Display */}
                 {detectedPitch && (
                   <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl">
