@@ -59,10 +59,10 @@ const SingingTipsScreen = ({ onBack }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-4 sm:p-6 pb-20 animate-fade-in">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 mb-6 border border-white/20">
+        <div className="glass-card p-6 sm:p-8 md:p-10 mb-6 animate-slide-up">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">

@@ -79,30 +79,30 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
   const progressPercentage = (currentRound / 10) * 100;
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 pb-20">
-      <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-lg w-full border border-white/20">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 pb-20 animate-fade-in">
+      <div className="glass-card p-6 sm:p-8 md:p-10 max-w-lg w-full animate-slide-up">
         {/* Header with Progress */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold">{currentRound}</span>
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+                <span className="text-white font-bold text-sm sm:text-base">{currentRound}</span>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-800">Round {currentRound}</h1>
-                <p className="text-sm text-gray-500">dari 10 rounds</p>
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-xl font-bold text-gray-800 truncate">Round {currentRound}</h1>
+                <p className="text-xs sm:text-sm text-gray-500">dari 10 rounds</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-500">Progress</p>
-              <p className="text-lg font-bold text-purple-600">{Math.round(progressPercentage)}%</p>
+            <div className="text-right flex-shrink-0 ml-2">
+              <p className="text-xs sm:text-sm text-gray-500">Progress</p>
+              <p className="text-base sm:text-lg font-bold text-purple-600">{Math.round(progressPercentage)}%</p>
             </div>
           </div>
           
           {/* Progress Bar */}
-          <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+          <div className="w-full bg-gray-200 rounded-full h-2.5 sm:h-3 overflow-hidden shadow-inner">
             <div 
-              className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500 ease-out"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full transition-all duration-500 ease-out shadow-sm"
               style={{ width: `${progressPercentage}%` }}
             ></div>
           </div>
@@ -110,10 +110,10 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
         
         {/* Error Display */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl">
-            <div className="flex items-center space-x-2">
-              <span className="text-red-500">⚠️</span>
-              <p className="text-red-700 text-sm">{error}</p>
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-2xl animate-slide-up">
+            <div className="flex items-start space-x-2 sm:space-x-3">
+              <span className="text-red-500 text-xl flex-shrink-0">⚠️</span>
+              <p className="text-red-700 text-xs sm:text-sm flex-1">{error}</p>
             </div>
           </div>
         )}
@@ -124,16 +124,17 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
             {/* Play Tone Section */}
             <div className="mb-8">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
                   Dengarkan nada ini
                 </h2>
-                <p className="text-gray-600">Klik tombol di bawah untuk memutar nada referensi</p>
+                <p className="text-gray-600 text-sm sm:text-base">Klik tombol di bawah untuk memutar nada referensi</p>
               </div>
               
               <button
                 onClick={handlePlayTone}
                 disabled={isPlaying}
-                className="w-full group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:transform-none disabled:shadow-none"
+                className="w-full group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-5 sm:py-6 px-6 sm:px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:transform-none disabled:shadow-none touch-target active:scale-95"
+                aria-label={isPlaying ? 'Memutar nada' : 'Putar nada referensi'}
               >
                 <div className="flex items-center justify-center space-x-3">
                   <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -143,7 +144,7 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                       <span className="text-lg">▶️</span>
                     )}
                   </div>
-                  <span className="text-lg">
+                  <span className="text-base sm:text-lg">
                     {isPlaying ? 'Memutar...' : 'Putar Nada'}
                   </span>
                 </div>
@@ -168,16 +169,17 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
             {hasPlayedTone && (
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
                     Sekarang rekam suara kamu
                   </h2>
-                  <p className="text-gray-600">Nyanyikan nada yang sama dengan yang baru saja kamu dengar</p>
+                  <p className="text-gray-600 text-sm sm:text-base">Nyanyikan nada yang sama dengan yang baru saja kamu dengar</p>
                 </div>
                 
                 {!isRecording ? (
                   <button
                     onClick={handleRecord}
-                    className="w-full group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                    className="w-full group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 sm:py-6 px-6 sm:px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl touch-target active:scale-95"
+                    aria-label="Mulai rekam suara"
                   >
                     <div className="flex items-center justify-center space-x-3">
                       <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -196,7 +198,8 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
                     
                     <button
                       onClick={handleStopRecord}
-                      className="w-full group relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+                      className="w-full group relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-5 sm:py-6 px-6 sm:px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl touch-target active:scale-95"
+                      aria-label="Stop rekam suara"
                     >
                       <div className="flex items-center justify-center space-x-3">
                         <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center group-hover:bg-white/30 transition-colors">
