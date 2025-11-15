@@ -17,6 +17,7 @@ export default {
         'bounce-slow': 'bounce 2s infinite',
         'fade-in': 'fadeIn 0.3s ease-in',
         'slide-up': 'slideUp 0.4s ease-out',
+        'pulse-subtle': 'pulseSubtle 1.8s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -26,6 +27,10 @@ export default {
         slideUp: {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '0.95' },
+          '50%': { transform: 'scale(1.03)', opacity: '1' },
         },
       },
       backdropBlur: {

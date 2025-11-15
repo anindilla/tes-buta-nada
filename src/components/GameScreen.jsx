@@ -32,6 +32,90 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
     }
   };
   
+  const getGuidance = () => {
+    if (!hasPlayedTone) {
+      return {
+        title: 'Langkah Pertama',
+        message: 'Tekan tombol Putar Nada dan dengarkan dengan seksama sebelum mulai merekam.'
+      };
+    }
+    
+    if (isRecording) {
+      return {
+        title: 'Sedang Merekam',
+        message: 'Jaga jarak mikrofon ±15 cm dan nyanyikan nada sepanjang 5 detik.'
+      };
+    }
+    
+    if (isAnalyzing) {
+      return {
+        title: 'Sedang Dianalisis',
+        message: 'AI kami sedang menilai pitch kamu. Jangan tutup aplikasi sampai selesai.'
+      };
+    }
+    
+    if (!hasRecorded) {
+      return {
+        title: 'Siap Merekam',
+        message: 'Tekan tombol Rekam Suara dan ikuti nada referensi dengan stabil.'
+      };
+    }
+    
+    return {
+      title: 'Mantap!',
+      message: 'Analisis selesai, bersiap untuk nada berikutnya.'
+    };
+  };
+  
+  const guidance = getGuidance();
+  
+  const stepStatuses = [
+    {
+      id: 1,
+      label: 'Dengarkan Nada',
+      description: 'Putar nada referensi kami',
+      status: hasPlayedTone ? 'done' : 'current'
+    },
+    {
+      id: 2,
+      label: 'Rekam Suara',
+      description: 'Ikuti nada selama 5 detik',
+      status: isRecording ? 'active' : hasRecorded ? 'done' : hasPlayedTone ? 'current' : 'todo'
+    },
+    {
+      id: 3,
+      label: 'Analisis AI',
+      description: 'Dapatkan evaluasi pitch',
+      status: isAnalyzing ? 'active' : hasRecorded ? 'current' : 'todo'
+    }
+  ];
+  
+  const getStepStyles = (status) => {
+    switch (status) {
+      case 'done':
+        return 'bg-green-50 border-green-200 text-green-700';
+      case 'active':
+        return 'bg-indigo-50 border-indigo-200 text-indigo-700 animate-pulse-subtle';
+      case 'current':
+        return 'bg-purple-50 border-purple-200 text-purple-700';
+      default:
+        return 'bg-gray-50 border-gray-200 text-gray-600';
+    }
+  };
+  
+  const getStepIcon = (status) => {
+    switch (status) {
+      case 'done':
+        return '✅';
+      case 'active':
+        return '🎯';
+      case 'current':
+        return '👉';
+      default:
+        return '⏳';
+    }
+  };
+  
   const handleRecord = async (e) => {
     e.preventDefault(); // Prevent any form submission
     e.stopPropagation(); // Stop event bubbling
@@ -128,6 +212,42 @@ const GameScreen = ({ gender, currentRound, onRoundComplete, onFinish }) => {
             </div>
           </div>
         )}
+        
+        {/* Guidance + Steps */}
+        <div className="mb-6 sm:mb-8 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-white to-purple-50 border border-purple-100 shadow-sm">
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-500 text-white flex items-center justify-center text-xl sm:text-2xl shadow-md">
+                🎧
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-wide text-purple-500 font-semibold mb-1">Panduan Cepat</p>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900">{guidance.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600 mt-1 leading-relaxed">{guidance.message}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            {stepStatuses.map((step) => (
+              <div
+                key={step.id}
+                className={`p-4 rounded-2xl border transition-all duration-300 ${getStepStyles(step.status)}`}
+              >
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-white/60 flex items-center justify-center text-xl">
+                    {getStepIcon(step.status)}
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide font-semibold">{`Langkah ${step.id}`}</p>
+                    <p className="font-bold text-base">{step.label}</p>
+                  </div>
+                </div>
+                <p className="text-sm opacity-80">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
         
         {/* Game Content */}
         <>
